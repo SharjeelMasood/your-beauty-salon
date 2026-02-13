@@ -1,0 +1,1994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glamour Studio | Beauty Salon</title>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #D14D72;
+            --primary-dark: #B13E5C;
+            --secondary: #FBA1A1;
+            --accent: #FCC5C0;
+            --dark: #2C1A1D;
+            --light: #FFF8F5;
+            --gold: #DEB887;
+            --purple: #9F73AB;
+            --purple-dark: #7E5590;
+            --gradient: linear-gradient(135deg, #D14D72, #9F73AB);
+            --gradient-hover: linear-gradient(135deg, #9F73AB, #D14D72);
+            --shadow: 0 10px 30px rgba(209, 77, 114, 0.15);
+            --shadow-hover: 0 20px 40px rgba(209, 77, 114, 0.25);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        /* Custom Animations */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        @keyframes sparkle {
+            0% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 0.3; transform: scale(0.8); }
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 20px rgba(209, 77, 114, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(209, 77, 114, 0.6); }
+            100% { box-shadow: 0 0 20px rgba(209, 77, 114, 0.3); }
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(209, 77, 114, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, white, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            transform: translateY(-2px);
+            text-shadow: 0 2px 10px rgba(255,255,255,0.5);
+        }
+
+        .book-btn {
+            background: white;
+            color: var(--primary) !important;
+            padding: 5px 10px !important;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            animation: pulseGlow 2s infinite;
+        }
+
+        .book-btn:hover {
+            background: var(--accent);
+            color: var(--dark) !important;
+            transform: translateY(-3px) !important;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .book-btn::after {
+            display: none;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.8rem;
+            color: white;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(209, 77, 114, 0.1), rgba(159, 115, 171, 0.1));
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><circle cx="50" cy="50" r="1" fill="%23D14D72" opacity="0.3"/></svg>');
+            background-size: 50px 50px;
+            opacity: 0.5;
+        }
+
+        .hero-shape {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(to top right, var(--light) 49%, transparent 51%);
+            z-index: 5;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: var(--dark);
+            max-width: 900px;
+            padding: 0 20px;
+        }
+
+        .hero-subtitle {
+            display: inline-block;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--primary);
+            background: rgba(255,255,255,0.9);
+            padding: 0.5rem 2rem;
+            border-radius: 50px;
+            margin-bottom: 2rem;
+            letter-spacing: 3px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(209, 77, 114, 0.2);
+        }
+
+        .hero-content h1 {
+            font-size: 5.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            text-shadow: 2px 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .hero-title-line {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        .hero-title-line::before {
+            content: '✨';
+            position: absolute;
+            left: -40px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            background: none;
+            -webkit-text-fill-color: var(--primary);
+            animation: sparkle 2s infinite;
+        }
+
+        .hero-title-line::after {
+            content: '✨';
+            position: absolute;
+            right: -40px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            background: none;
+            -webkit-text-fill-color: var(--primary);
+            animation: sparkle 2s infinite 1s;
+        }
+
+        .hero-description {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            color: var(--dark);
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.4s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:hover {
+            background: var(--gradient-hover);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .hero-floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .float-item {
+            position: absolute;
+            font-size: 2rem;
+            color: var(--primary);
+            opacity: 0.3;
+        }
+
+        .float-1 {
+            top: 20%;
+            left: 10%;
+            animation: float 6s infinite;
+        }
+
+        .float-2 {
+            top: 30%;
+            right: 15%;
+            animation: float 8s infinite reverse;
+        }
+
+        .float-3 {
+            bottom: 25%;
+            left: 15%;
+            animation: float 7s infinite 1s;
+        }
+
+        .float-4 {
+            bottom: 35%;
+            right: 10%;
+            animation: float 9s infinite 0.5s;
+        }
+
+        /* About Section */
+        .about {
+            background: white;
+            position: relative;
+            overflow: hidden;
+            padding: 6rem 5%;
+        }
+
+        .about::before {
+            content: '✧';
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            font-size: 15rem;
+            color: var(--accent);
+            opacity: 0.1;
+            transform: rotate(15deg);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-images {
+            position: relative;
+        }
+
+        .about-image-main {
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: var(--shadow-hover);
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-image-main img {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .about-image-main:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-image-small {
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 250px;
+            height: 250px;
+            border-radius: 30px;
+            overflow: hidden;
+            border: 8px solid white;
+            box-shadow: var(--shadow);
+            z-index: 3;
+            animation: float 6s infinite;
+        }
+
+        .about-image-small img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about-experience {
+            position: absolute;
+            top: 50px;
+            right: -30px;
+            background: var(--gradient);
+            color: white;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--shadow-hover);
+            z-index: 4;
+            animation: pulseGlow 3s infinite;
+        }
+
+        .about-experience .years {
+            font-size: 3rem;
+            font-weight: 800;
+            font-family: 'Playfair Display', serif;
+            line-height: 1;
+        }
+
+        .about-experience .text {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .about-content {
+            padding-left: 2rem;
+        }
+
+        .about-subtitle {
+            display: inline-block;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .about-subtitle::before {
+            content: '✦';
+            margin-right: 10px;
+            color: var(--primary);
+        }
+
+        .about-subtitle::after {
+            content: '✦';
+            margin-left: 10px;
+            color: var(--primary);
+        }
+
+        .about-content h2 {
+            font-size: 3rem;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .about-content h2 span {
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .about-content h2 span::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: var(--accent);
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .about-description {
+            font-size: 1.1rem;
+            color: var(--dark);
+            opacity: 0.8;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .about-feature {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .about-feature:hover .feature-icon {
+            transform: rotateY(180deg) scale(1.1);
+        }
+
+        .feature-text h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+            color: var(--dark);
+        }
+
+        .feature-text p {
+            font-size: 0.9rem;
+            color: var(--primary);
+            opacity: 0.8;
+        }
+
+        .about-stats {
+            display: flex;
+            gap: 3rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .about-stat {
+            text-align: center;
+        }
+
+        .about-stat .number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .about-stat .label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+        }
+
+        .about-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--gradient);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .about-btn:hover {
+            background: var(--gradient-hover);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+            gap: 1.5rem;
+        }
+
+        .about-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .about-btn:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Services Section */
+        .services {
+            background: var(--light);
+            padding: 6rem 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 3rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            color: var(--dark);
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 30px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(209, 77, 114, 0.1);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(209, 77, 114, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+            opacity: 0;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+            transform: rotate(45deg) translate(50%, 50%);
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .service-icon {
+            width: 100px;
+            height: 100px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            transition: all 0.4s ease;
+        }
+
+        .service-card:hover .service-icon {
+            transform: rotateY(180deg) scale(1.1);
+        }
+
+        .service-icon i {
+            font-size: 3rem;
+            color: white;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .service-card p {
+            margin-bottom: 1rem;
+            color: var(--dark);
+            opacity: 0.8;
+        }
+
+        .service-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--purple);
+        }
+
+        /* Stylists Section */
+        .stylists {
+            background: white;
+            padding: 6rem 5%;
+        }
+
+        .stylists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stylist-card {
+            background: var(--light);
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.4s ease;
+        }
+
+        .stylist-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .stylist-image {
+            height: 350px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .stylist-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .stylist-card:hover .stylist-image img {
+            transform: scale(1.1);
+        }
+
+        .stylist-overlay {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            right: 0;
+            background: var(--gradient);
+            padding: 1rem;
+            color: white;
+            transition: bottom 0.4s ease;
+            text-align: center;
+        }
+
+        .stylist-card:hover .stylist-overlay {
+            bottom: 0;
+        }
+
+        .stylist-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stylist-info h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stylist-title {
+            color: var(--purple);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .stylist-social {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .stylist-social a {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .stylist-social a:hover {
+            background: var(--purple);
+            transform: translateY(-5px) rotate(360deg);
+        }
+
+        /* Gallery Section */
+        .gallery {
+            background: var(--light);
+            padding: 6rem 5%;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 300px;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(209, 77, 114, 0.9), rgba(159, 115, 171, 0.9));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.4s ease;
+            transform: scale(0.8);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .gallery-overlay i {
+            font-size: 3rem;
+            color: white;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background: var(--gradient);
+            color: white;
+            padding: 6rem 5%;
+        }
+
+        .testimonials .section-title h2,
+        .testimonials .section-title p {
+            color: white;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.4s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255,255,255,0.2);
+        }
+
+        .testimonial-card i {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-card p {
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+        .customer {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .customer img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent);
+        }
+
+        /* Contact Section */
+        .contact {
+            background: white;
+            padding: 6rem 5%;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            background: var(--gradient);
+            color: white;
+            padding: 3rem;
+            border-radius: 30px;
+            transition: all 0.4s ease;
+        }
+
+        .contact-info:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .info-item:hover {
+            transform: translateX(10px);
+        }
+
+        .info-item i {
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea,
+        .contact-form select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--accent);
+            border-radius: 15px;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus,
+        .contact-form select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(209, 77, 114, 0.2);
+            transform: scale(1.02);
+        }
+
+        .submit-btn {
+            background: var(--gradient);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: var(--gradient-hover);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* Footer - Fixed for Mobile */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 5% 2rem;
+            width: 100%;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section {
+            text-align: left; /* Default left alignment */
+        }
+
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .footer-section h3 span {
+            color: var(--secondary);
+        }
+
+        .footer-section p {
+            opacity: 0.8;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            color: white;
+            background: rgba(255,255,255,0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul li a {
+            color: white;
+            opacity: 0.8;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-section ul li a:hover {
+            opacity: 1;
+            color: var(--secondary);
+            transform: translateX(5px);
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Montserrat', sans-serif;
+            min-width: 0;
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .newsletter-form input::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .newsletter-form button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .newsletter-form button:hover {
+            background: var(--purple);
+            transform: scale(1.05);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .hero-content h1 {
+                font-size: 4.5rem;
+            }
+            
+            .about-container {
+                gap: 3rem;
+            }
+            
+            .about-image-main img {
+                height: 500px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-content h1 {
+                font-size: 4rem;
+            }
+            
+            .hero-stats {
+                gap: 3rem;
+            }
+            
+            .about-container {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+            
+            .about-content {
+                padding-left: 0;
+            }
+            
+            .about-image-small {
+                width: 200px;
+                height: 200px;
+                right: -30px;
+            }
+            
+            .about-experience {
+                right: -20px;
+                padding: 1.5rem;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: var(--gradient);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                z-index: 1000;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                font-size: 1.2rem;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+            
+            .hero-title-line::before,
+            .hero-title-line::after {
+                display: none;
+            }
+            
+            .hero-stats {
+                flex-wrap: wrap;
+                gap: 2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            .btn {
+                width: 250px;
+                padding: 1rem 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+                padding: 0.4rem 1.5rem;
+            }
+            
+            .hero-description {
+                font-size: 1.1rem;
+                padding: 0 20px;
+            }
+            
+            .about-image-main img {
+                height: 400px;
+            }
+            
+            .about-image-small {
+                width: 150px;
+                height: 150px;
+                right: -20px;
+                bottom: -30px;
+            }
+            
+            .about-experience {
+                padding: 1rem;
+                right: -10px;
+            }
+            
+            .about-experience .years {
+                font-size: 2rem;
+            }
+            
+            .about-content h2 {
+                font-size: 2.5rem;
+            }
+            
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-stats {
+                gap: 2rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            /* Footer Mobile Styles - Left Aligned */
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+            
+            .footer-section {
+                text-align: left !important; /* Force left alignment */
+            }
+            
+            .footer-section h3 {
+                margin-left: 0;
+                text-align: left;
+            }
+            
+            .footer-section h3::after {
+                left: 0;
+                transform: none;
+            }
+            
+            .footer-section p {
+                text-align: left;
+            }
+            
+            .social-links {
+                justify-content: flex-start;
+            }
+            
+            .footer-section ul {
+                text-align: left;
+            }
+            
+            .footer-section ul li {
+                text-align: left;
+            }
+            
+            .footer-section ul li a {
+                text-align: left;
+            }
+            
+            .newsletter-form {
+                justify-content: flex-start;
+            }
+            
+            .newsletter-form input {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-image-main img {
+                height: 350px;
+            }
+            
+            .about-image-small {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .about-content h2 {
+                font-size: 2rem;
+            }
+            
+            .about-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .footer-section {
+                text-align: left !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-stats {
+                gap: 1.5rem;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .stat-label {
+                font-size: 0.9rem;
+            }
+            
+            .btn {
+                width: 200px;
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+            
+            .about-image-main img {
+                height: 300px;
+            }
+            
+            .about-image-small {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .about-experience {
+                padding: 0.8rem;
+            }
+            
+            .about-experience .years {
+                font-size: 1.5rem;
+            }
+            
+            .about-experience .text {
+                font-size: 0.8rem;
+            }
+            
+            .footer-section {
+                text-align: left !important;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+            
+            .footer-section {
+                text-align: left !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Glamour Studio</div>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <nav class="nav-links" id="navLinks">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#stylists">Stylists</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#testimonials">Reviews</a>
+            <a href="#contact">Contact</a>
+            <a href="#book" class="book-btn">Book Now</a>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-background">
+            <div class="hero-particles"></div>
+        </div>
+        
+        <div class="hero-floating-elements">
+            <div class="float-item float-1">✨</div>
+            <div class="float-item float-2">💄</div>
+            <div class="float-item float-3">💅</div>
+            <div class="float-item float-4">🌸</div>
+        </div>
+
+        <div class="hero-content">
+            <span class="hero-subtitle" data-aos="fade-down">WELCOME TO LUXURY</span>
+            <h1>
+                <span class="hero-title-line">Glamour</span><br>
+                <span style="background: linear-gradient(135deg, var(--purple), var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Studio</span>
+            </h1>
+            <p class="hero-description" data-aos="fade-up">Where beauty meets elegance and every client is treated like royalty. Experience the ultimate transformation.</p>
+            
+            <div class="hero-stats" data-aos="fade-up" data-aos-delay="200">
+                <div class="stat-item">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50k+</div>
+                    <div class="stat-label">Happy Clients</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Satisfaction</div>
+                </div>
+            </div>
+
+            <div class="hero-buttons" data-aos="fade-up" data-aos-delay="400">
+                <a href="#services" class="btn btn-primary">Explore Services</a>
+                <a href="#contact" class="btn btn-outline">Book Appointment</a>
+            </div>
+        </div>
+
+        <div class="hero-shape"></div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-container">
+            <div class="about-images" data-aos="fade-right">
+                <div class="about-image-main">
+                    <img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2Fsb24lMjBpbnRlcmlvcnxlbnwwfHwwfHx8MA%3D%3D">
+                </div>
+                <div class="about-image-small" data-aos="zoom-in" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Beauty Treatment">
+                </div>
+                <div class="about-experience" data-aos="fade-left" data-aos-delay="400">
+                    <div class="years">15+</div>
+                    <div class="text">years of Excellence</div>
+                </div>
+            </div>
+            <div class="about-content" data-aos="fade-left">
+                <span class="about-subtitle">ABOUT US</span>
+                <h2>Where Beauty <span>Meets</span> Elegance</h2>
+                <p class="about-description">
+                    Welcome to Glamour Studio, where we believe that every person deserves to feel beautiful and confident. 
+                    Since 2009, we have been providing exceptional beauty services in a luxurious and relaxing environment.
+                </p>
+                
+                <div class="about-features">
+                    <div class="about-feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h4>Certified Experts</h4>
+                            <p>Licensed professionals</p>
+                        </div>
+                    </div>
+                    <div class="about-feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h4>Premium Products</h4>
+                            <p>Organic & luxury brands</p>
+                        </div>
+                    </div>
+                    <div class="about-feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h4>Easy Booking</h4>
+                            <p>24/7 online appointments</p>
+                        </div>
+                    </div>
+                    <div class="about-feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h4>100% Satisfaction</h4>
+                            <p>Guaranteed results</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-stats">
+                    <div class="about-stat">
+                        <div class="number">5000+</div>
+                        <div class="label">Happy Clients</div>
+                    </div>
+                    <div class="about-stat">
+                        <div class="number">50+</div>
+                        <div class="label">Expert Stylists</div>
+                    </div>
+                    <div class="about-stat">
+                        <div class="number">100%</div>
+                        <div class="label">Quality</div>
+                    </div>
+                </div>
+
+                <a href="#contact" class="about-btn">
+                    Learn More About Us <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <div class="section-title" data-aos="fade-up">
+            <h2>Our Services</h2>
+            <p>Pamper yourself with our luxurious treatments</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card" data-aos="flip-left" data-aos-delay="100">
+                <div class="service-icon">
+                    <i class="fas fa-cut"></i>
+                </div>
+                <h3>Hair Styling</h3>
+                <p>Professional haircuts, styling, and treatments for all hair types</p>
+                <div class="service-price">From $50</div>
+            </div>
+
+            <div class="service-card" data-aos="flip-left" data-aos-delay="200">
+                <div class="service-icon">
+                    <i class="fas fa-paint-brush"></i>
+                </div>
+                <h3>Makeup Artistry</h3>
+                <p>Bridal, party, and everyday makeup by expert artists</p>
+                <div class="service-price">From $75</div>
+            </div>
+
+            <div class="service-card" data-aos="flip-left" data-aos-delay="300">
+                <div class="service-icon">
+                    <i class="fas fa-spa"></i>
+                </div>
+                <h3>Facial & Spa</h3>
+                <p>Rejuvenating facials and spa treatments for glowing skin</p>
+                <div class="service-price">From $65</div>
+            </div>
+
+            <div class="service-card" data-aos="flip-left" data-aos-delay="400">
+                <div class="service-icon">
+                    <i class="fas fa-hand-sparkles"></i>
+                </div>
+                <h3>Manicure & Pedicure</h3>
+                <p>Luxury nail care with premium products</p>
+                <div class="service-price">From $40</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stylists" id="stylists">
+        <div class="section-title" data-aos="fade-up">
+            <h2>Expert Stylists</h2>
+            <p>Meet our team of beauty professionals</p>
+        </div>
+        <div class="stylists-grid">
+            <div class="stylist-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="stylist-image">
+                    <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Stylist">
+                    <div class="stylist-overlay">
+                        <p>10+ years experience</p>
+                    </div>
+                </div>
+                <div class="stylist-info">
+                    <h3>Sarah Khan</h3>
+                    <p class="stylist-title">Senior Hair Stylist</p>
+                    <div class="stylist-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stylist-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="stylist-image">
+                    <img src="https://images.unsplash.com/photo-1581299894007-aaa50297cf16?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Stylist">
+                    <div class="stylist-overlay">
+                        <p>8+ years experience</p>
+                    </div>
+                </div>
+                <div class="stylist-info">
+                    <h3>Maria Ahmed</h3>
+                    <p class="stylist-title">Makeup Artist</p>
+                    <div class="stylist-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stylist-card" data-aos="zoom-in" data-aos-delay="300">
+                <div class="stylist-image">
+                    <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Stylist">
+                    <div class="stylist-overlay">
+                        <p>12+ years experience</p>
+                    </div>
+                </div>
+                <div class="stylist-info">
+                    <h3>Zara Ali</h3>
+                    <p class="stylist-title">Spa Specialist</p>
+                    <div class="stylist-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery" id="gallery">
+        <div class="section-title" data-aos="fade-up">
+            <h2>Our Work</h2>
+            <p>Browse through our latest creations</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item" data-aos="flip-left" data-aos-delay="100">
+                <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Hairstyle">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus"></i>
+                </div>
+            </div>
+            <div class="gallery-item" data-aos="flip-left" data-aos-delay="200">
+                <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Makeup">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus"></i>
+                </div>
+            </div>
+            <div class="gallery-item" data-aos="flip-left" data-aos-delay="300">
+                <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Nails">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+        <div class="section-title" data-aos="fade-up">
+            <h2>Client Reviews</h2>
+            <p>What our beautiful clients say about us</p>
+        </div>
+        <div class="testimonial-grid">
+            <div class="testimonial-card" data-aos="fade-right" data-aos-delay="100">
+                <i class="fas fa-quote-left"></i>
+                <p>"Best salon in town! The staff is so professional and friendly. Love their service!"</p>
+                <div class="customer">
+                    <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Client">
+                    <div>
+                        <h4>Fatima Sheikh</h4>
+                        <p>Regular Client</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-quote-left"></i>
+                <p>"Amazing makeup for my wedding! Everyone loved it. Highly recommended!"</p>
+                <div class="customer">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Client">
+                    <div>
+                        <h4>Ayesha Khan</h4>
+                        <p>Bride</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card" data-aos="fade-left" data-aos-delay="300">
+                <i class="fas fa-quote-left"></i>
+                <p>"Their facial treatments are magical. My skin has never looked better!"</p>
+                <div class="customer">
+                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Client">
+                    <div>
+                        <h4>Sana Malik</h4>
+                        <p>Happy Client</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="section-title" data-aos="fade-up">
+            <h2>Book Your Appointment</h2>
+            <p>Get in touch with us for a transformative experience</p>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info" data-aos="fade-right">
+                <h3>Visit Our Studio</h3>
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>123 Beauty Avenue, Fashion City</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-phone"></i>
+                    <p>+1 (555) 987-6543</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>hello@glamourstudio.com</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <p>Mon-Sun: 10:00 AM - 8:00 PM</p>
+                </div>
+            </div>
+            <form class="contact-form" data-aos="fade-left">
+                <div class="form-row">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-row">
+                    <input type="tel" placeholder="Phone Number">
+                    <select>
+                        <option>Select Service</option>
+                        <option>Hair Styling</option>
+                        <option>Makeup</option>
+                        <option>Facial & Spa</option>
+                        <option>Nails</option>
+                    </select>
+                </div>
+                <input type="date" placeholder="Preferred Date">
+                <textarea placeholder="Special Requests" rows="4"></textarea>
+                <button type="submit" class="submit-btn">Book Appointment ✨</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Glamour <span>Studio</span></h3>
+                <p>Where beauty meets elegance. Transforming looks since 2009. We provide premium beauty services in a luxurious environment.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#services">Our Services</a></li>
+                    <li><a href="#stylists">Expert Stylists</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#testimonials">Reviews</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Opening Hours</h3>
+                <ul>
+                    <li>Monday - Friday: 10am - 8pm</li>
+                    <li>Saturday: 9am - 9pm</li>
+                    <li>Sunday: 11am - 6pm</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Subscribe to get beauty tips & exclusive offers!</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your Email Address">
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Glamour Studio. All rights reserved. | ✨ Beauty is an attitude ✨</p>
+        </div>
+    </footer>
+
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 50,
+            disable: false
+        });
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+            
+            // Prevent scrolling when menu is open
+            if (navLinks.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                const navLinks = document.getElementById('navLinks');
+                navLinks.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form submission
+        const contactForm = document.querySelector('.contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for booking! We will contact you soon to confirm your appointment. ✨');
+                this.reset();
+            });
+        }
+
+        const newsletterForm = document.querySelector('.newsletter-form');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for subscribing to our newsletter! Get ready for beauty tips and offers! 💄');
+                this.reset();
+            });
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                const navLinks = document.getElementById('navLinks');
+                navLinks.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+</body>
+</html>
